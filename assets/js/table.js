@@ -1,4 +1,4 @@
-const DELIVERY_STORAGE_KEY = 'peergoDeliveryPosts';
+const DELIVERY_STORAGE_KEY = 'mavsideDeliveryPosts';
 const postPagePath = '/view/add.html';
 
 const defaultDeliveryData = [

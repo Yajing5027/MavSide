@@ -11,6 +11,29 @@ const protectedPaths = [
 
 const loginPagePath = '/view/index.html';
 
+function migrateLocalStorageKeys() {
+    const mapping = [
+        { oldKey: 'peergoUsers', newKey: 'mavsideUsers' },
+        { oldKey: 'peergoUserEmail', newKey: 'mavsideUserEmail' },
+        { oldKey: 'peergoUserRole', newKey: 'mavsideUserRole' },
+        { oldKey: 'peergoDeliveryPosts', newKey: 'mavsideDeliveryPosts' }
+    ];
+
+    mapping.forEach(({ oldKey, newKey }) => {
+        try {
+            const oldVal = localStorage.getItem(oldKey);
+            const newVal = localStorage.getItem(newKey);
+            if (oldVal !== null && (newVal === null || newVal === undefined || newVal === '')) {
+                localStorage.setItem(newKey, oldVal);
+                localStorage.removeItem(oldKey);
+                console.info('migrateLocalStorageKeys: migrated', oldKey, '->', newKey);
+            }
+        } catch (err) {
+            console.warn('migrateLocalStorageKeys error for', oldKey, err);
+        }
+    });
+}
+
 function isProtectedPage(pathname) {
     return protectedPaths.some(function(path) {
         return pathname.endsWith(path);
@@ -19,7 +42,7 @@ function isProtectedPage(pathname) {
 
 function ensureLoginState() {
     const pathname = window.location.pathname;
-    const userEmail = localStorage.getItem('peergoUserEmail');
+    const userEmail = localStorage.getItem('mavsideUserEmail');
 
     if (isProtectedPage(pathname) && !userEmail) {
         window.location.href = loginPagePath;
@@ -46,8 +69,8 @@ function bindLogoutLink() {
 
     logoutLink.addEventListener('click', function(event) {
         event.preventDefault();
-        localStorage.removeItem('peergoUserEmail');
-        localStorage.removeItem('peergoUserRole');
+        localStorage.removeItem('mavsideUserEmail');
+        localStorage.removeItem('mavsideUserRole');
         window.location.href = loginPagePath;
     });
 }
@@ -77,6 +100,12 @@ async function loadIncludes() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    try {
+        migrateLocalStorageKeys();
+    } catch (e) {
+        console.warn('Migration check failed', e);
+    }
+
     ensureLoginState();
     loadIncludes();
 });

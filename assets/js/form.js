@@ -10,8 +10,8 @@ const switchToLogin = document.getElementById('switch-to-login');
 const loginMessage = document.getElementById('auth-message');
 const registerMessage = document.getElementById('register-message');
 
-const USER_STORAGE_KEY = 'peergoUsers';
-const USER_ROLE_STORAGE_KEY = 'peergoUserRole';
+const USER_STORAGE_KEY = 'mavsideUsers';
+const USER_ROLE_STORAGE_KEY = 'mavsideUserRole';
 const ADMIN_USER_EMAIL = 'admin@mnsu.edu';
 const ADMIN_USER_PASSWORD = 'Admin1234';
 const dashboardPagePath = '/view/dashboard.html';
@@ -191,7 +191,7 @@ loginForm.addEventListener('submit', function(event) {
         return;
     }
 
-    localStorage.setItem('peergoUserEmail', email);
+    localStorage.setItem('mavsideUserEmail', email);
     localStorage.setItem(USER_ROLE_STORAGE_KEY, currentUser.role || 'user');
     setMessage(loginMessage, 'Login successful. Redirecting...', false);
     setTimeout(function() {

@@ -1,6 +1,6 @@
-const USER_STORAGE_KEY = 'peergoUsers';
-const USER_EMAIL_STORAGE_KEY = 'peergoUserEmail';
-const USER_ROLE_STORAGE_KEY = 'peergoUserRole';
+const USER_STORAGE_KEY = 'mavsideUsers';
+const USER_EMAIL_STORAGE_KEY = 'mavsideUserEmail';
+const USER_ROLE_STORAGE_KEY = 'mavsideUserRole';
 const LOGIN_PAGE_PATH = '/view/index.html';
 
 function readUsers() {

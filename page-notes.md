@@ -1,4 +1,4 @@
-# PeerGo 页面说明（按页面维护）
+# MavSide 页面说明（按页面维护）
 
 后续每完成一个页面或该页面新增一批功能，都在对应页面下新增一条说明。
 
@@ -32,15 +32,15 @@
 
 ### 代码层说明（当前版本）
 
-1. `form.js` 使用 `USER_STORAGE_KEY = peergoUsers` 存储用户表。
+1. `form.js` 使用 `USER_STORAGE_KEY = mavsideUsers` 存储用户表。
 2. 用户数据结构为：`{ email: { password, createdAt } }`。
 3. 当前为前端演示模式，登录校验在浏览器本地完成，不调用后端接口。
-4. 登录成功会写入 `peergoUserEmail`，用于受保护页面访问控制。
+4. 登录成功会写入 `mavsideUserEmail`，用于受保护页面访问控制。
 
 ### 数据说明
 
-- localStorage 键：`peergoUsers`
-- localStorage 键：`peergoUserEmail`
+- localStorage 键：`mavsideUsers`
+- localStorage 键：`mavsideUserEmail`
 
 ---
 
@@ -103,7 +103,7 @@
 
 ### 代码层说明（当前版本）
 
-1. `table.js` 使用 `DELIVERY_STORAGE_KEY = peergoDeliveryPosts` 读写列表数据。
+1. `table.js` 使用 `DELIVERY_STORAGE_KEY = mavsideDeliveryPosts` 读写列表数据。
 2. 每条请求包含唯一 `id`，用于事件委托时精确更新接单状态。
 3. 页面初始化时会确保数据项具备 `id` 字段（兼容旧数据）。
 4. 筛选逻辑由 `applyFilters()` 对当前数据数组进行多条件过滤后渲染。
@@ -111,7 +111,7 @@
 
 ### 数据说明
 
-- localStorage 键：`peergoDeliveryPosts`
+- localStorage 键：`mavsideDeliveryPosts`
 - 单条字段：`id/time/type/content/pickupLocation/deliveryLocation/reward/state`
 - 地图清单文件：`assets/maps/manifest.json`
 
@@ -143,7 +143,7 @@
 
 ### 数据说明
 
-- 写入 localStorage 键：`peergoDeliveryPosts`
+- 写入 localStorage 键：`mavsideDeliveryPosts`
 
 ---
 
