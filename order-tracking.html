@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracking</title>
+    <link rel="stylesheet" href="style/theme.css">
+    <link rel="stylesheet" href="style/view.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header aria-label="Task tracking page header">
+        <div data-include="components/navbar.html"></div>
+        <h1>Task Tracking</h1>
+        <p>Follow matching, pickup and delivery progress for both orders and errands.</p>
+    </header>
+
+    <main id="main-content" role="main" aria-label="Task tracking">
+        <section aria-labelledby="tracking-status-title">
+            <h2 id="tracking-status-title">Current Status</h2>
+            <div id="tracking-overview" role="region" aria-live="polite"></div>
+        </section>
+
+        <section aria-labelledby="tracking-timeline-title">
+            <h2 id="tracking-timeline-title">Timeline</h2>
+            <div id="tracking-history" class="tracking-history" role="region" aria-live="polite"></div>
+        </section>
+
+        <section aria-labelledby="verify-heading">
+            <h2 id="verify-heading">Verification Code</h2>
+            <div id="tracking-code" role="region" aria-live="polite"></div>
+        </section>
+
+        <div class="cart-buttons">
+            <button type="button" id="tracking-back-btn" aria-label="Go back to previous page">Back</button>
+        </div>
+    </main>
+
+    <div data-include="components/footer.html"></div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/task-progress.js"></script>
+    <script src="assets/js/notification-center.js"></script>
+    <script src="assets/js/orders.js"></script>
+    <script src="assets/js/order-tracking.js"></script>
+</body>
+</html>

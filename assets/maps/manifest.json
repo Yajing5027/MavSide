@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-04-14T00:00:00.000Z",
+  "sourcePage": "https://mankato.mnsu.edu/about-the-university/maps-and-transportation/maps-and-directions/",
+  "visitedPages": 1,
+  "candidateCount": 1,
+  "downloadedCount": 1,
+  "maps": [
+    {
+      "id": "mnsu-map-128",
+      "title": "Campus 3D Perspective Map",
+      "localPath": "/assets/maps/mnsu/128-3d-perspective-map-18492e45.pdf",
+      "sourceUrl": "https://mankato.mnsu.edu/globalassets/maps/university/buildings/3d-map.pdf",
+      "contentType": "application/pdf"
+    }
+  ]
+}
