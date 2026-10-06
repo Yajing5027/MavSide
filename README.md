@@ -1,22 +1,7 @@
-# MavSide
+﻿# MavSide
 
-**MavSide** is a peer-to-peer campus errand sharing platform tailored for the Minnesota State University, Mankato community.
+This project was selected for presentation at the CADSCOM 2026 Student Showcase, organized by the Twin Cities ACM Chapter.
 
-🔗 **[Live Demo](https://yajing5027.github.io/MavSide/)**
+**Live demo:** [https://yajing5027.github.io/MavSide/](https://yajing5027.github.io/MavSide/)
 
----
-
-## Features
-
-- **Errand Board & Delivery**: Post or accept campus delivery errands with real-time status tracking.
-- **Campus Shops & Dining**: Browse campus dining options, menus, and operating hours.
-- **Interactive Campus Maps**: Integrated 3D building and campus location maps.
-- **Account & Notification System**: Manage user preferences, errands history, and real-time alerts.
-
-## Technology Stack
-
-Vanilla HTML5, modern CSS3 (custom properties design system), responsive components, and client-side state persistence.
-
-## Deployment
-
-This repository serves the production release via GitHub Pages.
+<p align="center"><img src="poster.png" alt="MavSide poster" width="1200" style="max-width:100%;height:auto;"></p>
