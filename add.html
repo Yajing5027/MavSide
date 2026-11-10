@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MavSide Post Task</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -34,26 +34,30 @@
 
             <div id="reward-component" role="group" aria-label="Reward field"></div>
 
-            <div id="note-component" role="group" aria-label="Task note field"></div>
-
             <div>
                 <label for="deliver-at">Deliver By</label>
-                <input id="deliver-at" name="deliver-at" type="datetime-local" lang="en-US" placeholder="Select date and time">
-                <small id="deliver-at-us-preview" class="account-muted" aria-live="polite"></small>
+                <input id="deliver-at" name="deliver-at" type="text" lang="en-US" placeholder="MM/DD/YYYY hh:mm AM/PM" aria-describedby="deliver-at-us-preview" autocomplete="off">
+                <small id="deliver-at-us-preview" class="account-muted">Example: 11/03/2026 2:30 PM</small>
             </div>
 
-            <div>
-                <button type="submit">Post</button>
-                <button type="reset">Reset</button>
+            <div id="note-component" role="group" aria-label="Task note field"></div>
+
+
+            <div class="form-actions-row">
+                <button type="submit" id="post-task-submit-btn">Post</button>
+                <button type="reset" id="post-task-reset-btn">Reset</button>
             </div>
         </form>
     </main>
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/account.js"></script>
-    <script src="assets/js/form-components.js"></script>
-    <script src="assets/js/add.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/ledger.js?v=b38b9a15b6f8"></script>
+    <script src="assets/js/account.js?v=dec5125d3103"></script>
+    <script src="assets/js/mavaccess.js?v=3c782c8db426"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/form-components.js?v=d57af1208cd0"></script>
+    <script src="assets/js/add.js?v=0f8e932b3932"></script>
 </body>
 </html>

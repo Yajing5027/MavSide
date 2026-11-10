@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
 </head>
-<body class="has-cart-dock">
+<body class="has-cart-dock shop-option-c">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header aria-label="Shop page header">
         <div data-include="components/navbar.html"></div>
+        <nav class="shop-breadcrumb" aria-label="Shop navigation">
+            <a class="shop-back-link" href="shops.html">← All Shops</a>
+            <a class="shop-cart-jump" href="#cart-panel">View cart</a>
+        </nav>
         <h1 id="shop-title">Shop</h1>
     </header>
 
@@ -19,23 +23,29 @@
         <section class="shop-menu-layout" aria-label="Shop menu layout">
             <aside class="menu-sidebar" aria-label="Menu categories">
                 <h2>Categories</h2>
-                <div id="menu-categories" class="menu-categories" role="list" aria-live="polite"></div>
+                <div id="menu-categories" class="menu-categories" role="group" aria-label="Menu category filters"></div>
             </aside>
             <div class="menu-content-wrap" role="region" aria-label="Menu items">
-                <h2>Menu</h2>
-                <div id="menu-list" class="menu-list" role="list" aria-live="polite"></div>
+                <div class="menu-content-header">
+                    <h2>Menu</h2>
+                    <label class="menu-search-wrap" for="menu-search">
+                        <span class="menu-search-label">Search menu</span>
+                        <input id="menu-search" class="menu-search-input" type="search" placeholder="Search menu items" autocomplete="off" aria-controls="menu-list">
+                    </label>
+                </div>
+                <div id="menu-list" class="menu-list" aria-live="polite" aria-label="Menu products"></div>
             </div>
+            <aside id="cart-panel" class="cart-panel cart-dock" role="complementary" aria-label="Shopping cart"></aside>
         </section>
-        <aside id="cart-panel" class="cart-panel cart-dock" role="complementary" aria-label="Shopping cart"></aside>
     </main>
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/shopdata.js"></script>
-    <script src="assets/js/shops-fixed-data.js"></script>
-    <script src="assets/js/shops.js"></script>
-    <script src="assets/js/cart.js"></script>
-    <script src="assets/js/orders.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/shopdata.js?v=ed688bb27bc1"></script>
+    <script src="assets/js/shops-fixed-data.js?v=5cae6c918406"></script>
+    <script src="assets/js/shops.js?v=81056fcdb2f6"></script>
+    <script src="assets/js/cart.js?v=18666c84c9c4"></script>
+    <script src="assets/js/orders.js?v=9580bdd1c34d"></script>
 </body>
 </html>

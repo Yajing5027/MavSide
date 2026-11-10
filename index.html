@@ -4,8 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MavSide Login</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <style>
+/* Scoped Agent B styles for Issue #10 Demo Roles */
+.demo-roles-container {
+    margin: 16px 0 12px;
+    padding: 14px;
+    background: #fbf9ff;
+    border: 1px solid #ede4ff;
+    border-radius: 14px;
+}
+.demo-roles-header {
+    margin-bottom: 12px;
+}
+.demo-roles-title {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #3b1d60;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.demo-roles-note {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.35;
+}
+.demo-roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    align-items: stretch;
+}
+.demo-role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    padding: 12px;
+    min-height: 100px;
+    background: #ffffff;
+    border: 1.5px solid #d8b4fe;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    box-shadow: 0 2px 6px rgba(109, 40, 217, 0.05);
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.demo-role-card:hover {
+    border-color: #8b5cf6;
+    background: #faf5ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.12);
+}
+.demo-role-card:focus-visible {
+    outline: 2px solid #6d28d9;
+    outline-offset: 2px;
+    border-color: #6d28d9;
+    background: #faf5ff;
+}
+.demo-role-card:active {
+    transform: translateY(0);
+}
+.demo-role-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: #ede9fe;
+    color: #5b21b6;
+    margin-bottom: 6px;
+}
+.demo-role-badge-access {
+    background: #fae8ff;
+    color: #86198f;
+}
+.demo-role-badge-admin {
+    background: #f1f5f9;
+    color: #334155;
+}
+.demo-role-name {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+.demo-role-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: #4b5563;
+    line-height: 1.35;
+    flex-grow: 1;
+    margin-bottom: 8px;
+}
+.demo-role-dest {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #6d28d9;
+    letter-spacing: 0.01em;
+}
+.demo-role-card-accent {
+    border-color: #c084fc;
+}
+@media (max-width: 960px) and (min-width: 768px) {
+    .demo-roles-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    .demo-role-card {
+        padding: 10px 8px;
+    }
+    .demo-role-name {
+        font-size: 0.82rem;
+    }
+    .demo-role-desc {
+        font-size: 0.72rem;
+    }
+}
+@media (max-width: 767px) and (min-width: 480px) {
+    .demo-roles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .demo-roles-grid > .demo-role-card:last-child {
+        grid-column: span 2;
+    }
+    .demo-role-card {
+        min-height: 90px;
+    }
+}
+@media (max-width: 479px) {
+    .demo-roles-container {
+        padding: 12px 10px;
+        margin: 14px 0 10px;
+    }
+    .demo-roles-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .demo-role-card {
+        min-height: auto;
+        padding: 12px 14px;
+        flex-direction: column;
+        width: 100%;
+    }
+    .demo-role-desc {
+        margin-bottom: 6px;
+    }
+}
+
+.normal-auth-disclosure {margin:0 0 12px;padding:0;}
+.normal-auth-disclosure summary {cursor:pointer;color:var(--color-brand-strong);font-size:.82rem;font-weight:700;margin-bottom:10px;}
+.auth-safety-note {font-size:.76rem;color:var(--color-text-secondary);line-height:1.4;margin:7px 0;}
+.regular-auth-entry {text-align:center;font-size:.84rem;margin:11px 0 0;color:var(--color-text-secondary);}
+.regular-auth-entry button {border:0;background:none;text-decoration:underline;text-underline-offset:3px;color:var(--color-brand-strong);font:inherit;font-weight:700;padding:5px;cursor:pointer;}
+.regular-auth-entry button:focus-visible {outline:2px solid var(--color-brand);outline-offset:2px;}
+.demo-roles-container {margin-top:8px;}
+
+.entry-preview-note {font-size:.73rem;color:var(--color-text-secondary);margin:8px 2px 0;}
+.entry-preview-note summary {cursor:pointer;color:var(--color-brand-strong);font-weight:650;width:max-content;}
+.entry-preview-note p {margin:6px 0 0;line-height:1.4;}
+     
+/* #86: standard sign-in is visible and separate from the six role options. */
+.clean-role-entry {margin:12px 0 15px;padding:11px 14px;background:#fbfaff;border:1px solid #e8dcf7;border-radius:12px;}
+.clean-role-heading {font-size:.84rem;font-weight:750;color:#3b1d60;}
+.clean-role-help {display:inline-block;margin-left:8px;color:#776b87;font-size:.73rem;}
+.clean-role-links {display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;}
+.clean-role-links button {flex:1;min-width:110px;cursor:pointer;border:1px solid #e0d1f1;border-radius:9px;background:white;padding:9px 12px;text-align:left;font-size:.83rem;font-weight:650;color:#5b21b6;}
+.clean-role-links button:hover {border-color:#8b5cf6;background:#f7f2ff;}
+.clean-role-links button:focus-visible {outline:2px solid #6d28d9;outline-offset:2px;}
+.clean-role-links button span {float:right;}
+.normal-auth-panel {margin:12px 0 8px;padding:15px 17px;border:1px solid #e8dcf7;border-radius:12px;background:#fff;}
+.normal-auth-panel h3 {margin:0 0 8px;font-size:.96rem;color:#3b1d60;}
+.normal-auth-panel > div {margin-top:9px;}
+.normal-auth-panel input:not([type=checkbox]) {min-height:40px;}
+.auth-register-hint {margin:8px 0 0;font-size:.8rem;}
+@media(max-width:580px) {
+  .normal-auth-panel {padding:12px;}
+  .clean-role-entry {padding:11px;}
+  .clean-role-help {display:block;margin:3px 0 0;}
+  .clean-role-links {gap:6px;}
+  .clean-role-links button {min-width:0;flex:1 1 100%;padding:8px 10px;}
+}
+
+/* Each demo role offers both prepared and empty starting states. */
+.demo-role-card {cursor:default;transform:none;gap:4px;}
+.demo-role-card:hover {transform:none;}
+.demo-role-actions {display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;margin-top:auto;}
+.demo-role-actions button {min-width:0;min-height:36px;padding:6px 7px;border:1px solid #d7c4ed;border-radius:8px;background:#fff;color:#51229a;font-family:inherit;font-size:.72rem;line-height:1.25;font-weight:600;cursor:pointer;}
+.demo-role-actions button:first-child {background:#5b2a9c;color:#fff;border-color:#5b2a9c;}
+.demo-role-actions button:focus-visible {outline:2px solid #6d28d9;outline-offset:2px;}
+.normal-auth-panel {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;align-items:end;}
+.normal-auth-panel h3,.normal-auth-panel .auth-safety-note,.normal-auth-panel .auth-register-hint {grid-column:1/-1;}
+.normal-auth-panel > div {margin:0;min-width:0;}
+.normal-auth-panel label {display:block;margin-bottom:4px;}
+.normal-auth-panel input:not([type=checkbox]) {width:100%;box-sizing:border-box;}
+.normal-auth-panel input[type=checkbox] {width:auto;}
+.normal-auth-panel button[type=submit] {min-width:120px;}
+@media(max-width:580px){.normal-auth-panel{grid-template-columns:1fr}.normal-auth-panel h3,.normal-auth-panel .auth-safety-note,.normal-auth-panel .auth-register-hint{grid-column:auto}}
+</style>
 </head>
 <body>
     <header aria-label="Login page header">
@@ -18,6 +226,45 @@
         <section id="login-section" aria-labelledby="login-title">
             <h2 id="login-title">Login</h2>
             <form id="login-form" autocomplete="on" aria-label="Login form">
+
+                <div class="demo-roles-container" role="group" aria-label="Quick campus role entry">
+                    <div class="demo-roles-header">
+                        <h3 class="demo-roles-title">Explore MavSide</h3>
+                        <p class="demo-roles-note">Choose a role, then start with sample data or an empty workspace. Both are local demos.</p>
+                    </div>
+                    <div class="demo-roles-grid">
+                        <article class="demo-role-card">
+                            <span class="demo-role-badge">Student</span>
+                            <strong class="demo-role-name">Ordinary Student</strong>
+                            <span class="demo-role-desc">Explore peer tasks and campus requests</span>
+                            <div class="demo-role-actions" role="group" aria-label="Ordinary Student demo options">
+                                <button type="button" id="demo-role-student">Sample data</button>
+                                <button type="button" id="clean-role-student">Empty workspace</button>
+                            </div>
+                        </article>
+                        <article class="demo-role-card">
+                            <span class="demo-role-badge">MavAccess</span>
+                            <strong class="demo-role-name">Access Student</strong>
+                            <span class="demo-role-desc">Explore the assistance experience</span>
+                            <div class="demo-role-actions" role="group" aria-label="Access Student demo options">
+                                <button type="button" id="demo-role-mavaccess">Sample data</button>
+                                <button type="button" id="clean-role-mavaccess">Empty workspace</button>
+                            </div>
+                        </article>
+                        <article class="demo-role-card">
+                            <span class="demo-role-badge">Staff</span>
+                            <strong class="demo-role-name">Admin</strong>
+                            <span class="demo-role-desc">Explore the administration center</span>
+                            <div class="demo-role-actions" role="group" aria-label="Admin demo options">
+                                <button type="button" id="demo-role-admin">Sample data</button>
+                                <button type="button" id="clean-role-admin">Empty workspace</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <section class="normal-auth-panel" id="normal-sign-in" aria-label="Sign in to a local profile">
+                    <h3>Sign in to a local profile</h3>
+                    <p class="auth-safety-note">Browser-local prototype only. Passwords are stored unencrypted in this browser. Do not use real credentials or enter sensitive personal information.</p>
                 <div>
                     <label for="login-email">School Email</label>
                     <input id="login-email" name="email" type="email" placeholder="example@mnsu.edu" autocomplete="email" required>
@@ -39,11 +286,8 @@
                     <button type="submit">Login</button>
                 </div>
 
-                <p>Don't have an account? Go to <span class="link-text" id="switch-to-register" role="button" tabindex="0" aria-controls="register-section">Register</span>.</p>
-                <p><strong>Test Accounts:</strong><br>
-                Admin: admin@mnsu.edu / Admin1234<br>
-                MavAccess: mavaccess@mnsu.edu / Access123
-                </p>
+                <p class="auth-register-hint">New here? <span class="link-text" id="switch-to-register" role="button" tabindex="0" aria-controls="register-section">Create account</span>.</p>
+                </section>
                 <p id="auth-message" aria-live="polite"></p>
             </form>
         </section>
@@ -71,7 +315,7 @@
                 </div>
 
                 <p>Already have an account? Go to <span class="link-text" id="switch-to-login" role="button" tabindex="0" aria-controls="login-section">Login</span>.</p>
-                <p>This is running in front-end demo mode, and account data is stored in your browser.</p>
+                <p class="auth-safety-note">Local profile on this browser only. Passwords are stored unencrypted here; this does not verify student status or create a secure account. Do not use real credentials or enter sensitive personal information.</p>
                 <p id="register-message" aria-live="polite"></p>
             </form>
         </section>
@@ -79,7 +323,8 @@
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/form.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/workspaces.js?v=54772ef60ba2"></script>
+    <script src="assets/js/form.js?v=0a22d9429de0"></script>
 </body>
 </html>

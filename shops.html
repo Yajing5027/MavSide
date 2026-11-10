@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MavSide Shops</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
 </head>
-<body>
+<body class="shops-option-c">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header aria-label="Shops page header">
         <div data-include="components/navbar.html"></div>
@@ -17,19 +17,38 @@
 
     <main id="main-content" role="main" aria-label="Shops and Merchants">
         <section aria-labelledby="shops-title">
-            <h2 id="shops-title">All Merchants</h2>
-            <div id="shops-list" class="shops-grid" role="list" aria-live="polite" aria-label="Merchant list"></div>
+            <div class="shops-index-heading">
+                <div>
+                    <h2 id="shops-title">Find your next meal</h2>
+                    <p class="shops-index-subtitle">Explore campus shops and discover what is on the menu.</p>
+                </div>
+                <span id="shops-result-count" class="shops-result-count" role="status" aria-live="polite">4 shops</span>
+            </div>
+            <div class="shops-discovery-search" role="search">
+                <label for="shops-search">Search shops or menu items</label>
+                <div class="shops-discovery-search-row">
+                    <input id="shops-search" type="search" placeholder="Try bagels, coffee, tacos…" autocomplete="off" aria-controls="shops-list" aria-describedby="shops-search-help">
+                    <button id="shops-search-clear" type="button" hidden>Clear</button>
+                </div>
+                <p id="shops-search-help">Search by shop name, food, drink or menu category.</p>
+            </div>
+            <div id="shops-list" class="shops-grid" role="group" aria-label="Available merchants"></div>
+            <div id="shops-empty-state" class="shops-empty-state" role="status" hidden>
+                <h3>No shops found</h3>
+                <p>Try a different food or shop name.</p>
+                <button id="shops-empty-clear" type="button">Show all shops</button>
+            </div>
         </section>
     </main>
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/shop-card-component.js"></script>
-    <script src="assets/js/shopdata.js"></script>
-    <script src="assets/js/shops-fixed-data.js"></script>
-    <script src="assets/js/shops.js"></script>
-    <script src="assets/js/cart.js"></script>
-    <script src="assets/js/orders.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/shop-card-component.js?v=1691e3c1cdbc"></script>
+    <script src="assets/js/shopdata.js?v=ed688bb27bc1"></script>
+    <script src="assets/js/shops-fixed-data.js?v=5cae6c918406"></script>
+    <script src="assets/js/shops.js?v=81056fcdb2f6"></script>
+    <script src="assets/js/cart.js?v=18666c84c9c4"></script>
+    <script src="assets/js/orders.js?v=9580bdd1c34d"></script>
 </body>
 </html>

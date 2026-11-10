@@ -1,27 +1,65 @@
+<style>
+/* Scoped Agent B navbar fix for Issue #40: Suppress stray underline on logo/home link and provide accessible active/focus state */
+.top-nav .nav-home-link::after,
+.top-nav .nav-home-link:hover::after,
+.top-nav .nav-home-link.active-link::after {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    content: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.top-nav .nav-home-link {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 16px;
+    padding-bottom: 0 !important;
+    position: relative;
+    transition: transform 0.15s ease;
+}
+
+.top-nav .nav-home-link:focus-visible {
+    outline: 2px solid var(--color-brand, #8b5cf6) !important;
+    outline-offset: 3px !important;
+    border-radius: 16px !important;
+}
+
+.top-nav .nav-home-link.active-link .nav-logo {
+    border-color: var(--color-brand, #8b5cf6) !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25), var(--shadow-soft, 0 4px 12px rgba(0,0,0,0.06)) !important;
+}
+
+.top-nav .nav-home-link:hover .nav-logo {
+    border-color: var(--color-brand, #8b5cf6);
+    transform: translateY(-1px);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+</style>
 <nav class="top-nav" aria-label="Primary navigation">
     <ul class="top-nav-list">
         <li class="nav-left">
             <a href="dashboard.html" aria-label="MavSide Home" class="nav-home-link">
-                <span class="nav-logo"><img src="assets/images/mavside-logo.png" alt="MavSide"></span>
+                <span class="nav-logo"><img src="assets/images/mavside-logo.svg" alt="MavSide" width="1444" height="633"></span>
             </a>
         </li>
 
         <li class="nav-center nav-route-center">
-            <span class="nav-location-icon" aria-hidden="true">📍</span>
-            <div class="nav-route-wrap">
-                <label for="nav-pickup-select" class="sr-only">Pickup Location</label>
-                <select id="nav-pickup-select" aria-label="Pickup Location"></select>
-            </div>
-            <span class="nav-route-arrow">to</span>
-            <div class="nav-route-wrap">
-                <label for="nav-delivery-select" class="sr-only">Delivery Location</label>
-                <select id="nav-delivery-select" aria-label="Delivery Location"></select>
-            </div>
+            <button type="button" disabled id="nav-location-button" class="nav-location-indicator" aria-label="CSU Campus location. Centennial Student Union at Minnesota State University, Mankato" title="Centennial Student Union · Minnesota State University, Mankato">
+                <span class="nav-location-pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+                <span class="nav-location-copy"><strong id="nav-location-label">CSU</strong> <span class="nav-location-hint">Campus location</span></span>
+            </button>
+            <span id="nav-location-status" class="sr-only" role="status" aria-live="polite"></span>
         </li>
 
         <li class="nav-links nav-right-tools">
-            <button type="button" id="nav-notification-button" class="nav-icon-btn" aria-label="Notifications">🔔<span id="nav-notification-dot" class="nav-notification-dot" aria-hidden="true"></span></button>
-            <a id="account-link" class="nav-icon-btn nav-account-link" href="account.html" aria-label="Account">👤</a>
+            <button type="button" id="nav-notification-button" class="nav-icon-btn" aria-label="Notifications">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span id="nav-notification-dot" class="nav-notification-dot" aria-hidden="true"></span></button>
+            <a id="account-link" class="nav-icon-btn nav-account-link" href="account.html" aria-label="Account">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg></a>
         </li>
     </ul>
 </nav>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MavSide | End-to-End Demo</title>
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <style>
+        .demo-step { background: var(--color-surface-soft); border:1px solid var(--color-border); border-radius: var(--radius-lg); padding:16px; margin-bottom:12px; }
+        .demo-step h2 { margin:0 0 8px; font-size:1.05rem; }
+        .demo-step .stepnum { display:inline-block; background:var(--color-primary,#6d28d9); color:#fff; border-radius:999px; font-size:.75rem; padding:2px 9px; margin-right:8px; }
+        .demo-row { display:flex; justify-content:space-between; padding:4px 0; font-size:.9rem; }
+        .demo-row.total { border-top:1px solid var(--color-border); font-weight:800; }
+        .demo-btn { padding:8px 14px; border-radius:8px; border:none; background:var(--color-primary,#6d28d9); color:#fff; font-weight:700; cursor:pointer; margin-top:10px; }
+        .demo-btn:disabled { background:#9ca3af; cursor:default; }
+        .demo-note { font-size:.78rem; color:var(--color-text-tertiary); margin-top:8px; }
+        .demo-ledger { font-size:.85rem; }
+        .demo-ledger div { padding:5px 0; border-bottom:1px solid var(--color-border); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <div data-include="components/navbar.html"></div>
+        <h1>End-to-End Demo</h1>
+        <p class="hall-slogan">From a matched helper to a completed subsidized delivery.</p>
+    </header>
+    <main id="main-content">
+        <section class="demo-step" id="step1">
+            <h2><span class="stepnum">1</span>Find a helper already going your way</h2>
+            <p style="font-size:.85rem;color:var(--color-text-secondary);margin:0 0 8px;">
+                A student with limited mobility needs an item picked up at Trafton North and dropped at Trafton.
+                The route engine checks a helper already walking Wissink Hall &rarr; Clinical Sciences.
+            </p>
+            <div id="demo-match"></div>
+        </section>
+
+        <section class="demo-step" id="step2" hidden>
+            <h2><span class="stepnum">2</span>Apply MavAccess subsidy</h2>
+            <p style="font-size:.85rem;color:var(--color-text-secondary);margin:0 0 8px;">
+                The requester is a verified MavAccess student. Their MavPoints and the subsidy pool reduce the $2.00 delivery charge.
+            </p>
+            <div id="demo-quote"></div>
+            <button class="demo-btn" id="demo-complete">Mark task complete</button>
+        </section>
+
+        <section class="demo-step" id="step3" hidden>
+            <h2><span class="stepnum">3</span>Transaction recorded</h2>
+            <div id="demo-ledger"></div>
+        </section>
+        <section class="demo-step" id="step3b" hidden>
+            <h2><span class="stepnum">4</span>Second order &mdash; subsidy pool kicks in</h2>
+            <p class="demo-note">The second simulated fee draws on remaining points and the subsidy pool.</p>
+            <div id="demo-quote2"></div>
+            <button class="demo-btn" id="demo-complete2">Complete second order</button>
+        </section>
+        <section class="demo-step" id="step3c" hidden>
+            <h2><span class="stepnum">5</span>Final ledger</h2>
+            <div id="demo-ledger-final"></div>
+            <p class="demo-note">All amounts and points are simulated for the showcase; no real payment or university verification.</p>
+        </section>
+    </main>
+    <div data-include="components/footer.html"></div>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/campus-network.js?v=5a0ff34fa722"></script>
+    <script src="assets/js/campus-graph.js?v=4008865c2b14"></script>
+    <script src="assets/js/mavaccess.js?v=3c782c8db426"></script>
+    <script src="assets/js/demo.js?v=215870d60ba4"></script>
+</body>
+</html>

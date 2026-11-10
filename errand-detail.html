@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Errand Delivery Detail</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <link rel="stylesheet" href="assets/vendor/leaflet.css?v=ee2b8290ebd8">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -25,9 +26,15 @@
             <div id="errand-detail-note" role="region" aria-live="polite"></div>
         </section>
 
-        <section aria-labelledby="errand-actions-title">
-            <h2 id="errand-actions-title">Actions</h2>
-            <div id="errand-detail-progress" style="margin-bottom:10px;" role="status" aria-live="polite"></div>
+        <section aria-labelledby="errand-route-title">
+            <h2 id="errand-route-title">Modeled Route Fit</h2>
+            <div id="errand-route-result" role="status" aria-live="polite"></div>
+            <div id="errand-route-map" role="group" aria-label="Modeled direct and task detour routes on campus map" style="display:none;width:100%;height:260px;border-radius:8px;margin-top:12px;"></div>
+            <div id="errand-anim-controls" class="tracking-anim-controls" style="display:none;margin-top:10px;" role="region" aria-label="Route animation controls"></div>
+            <p class="account-muted">Modeled main-campus building and footway network with OSM tiles. This is not university navigation or a certified accessible route.</p>
+        </section>
+
+        <section aria-label="Navigation">
             <div class="cart-buttons">
                 <button id="errand-detail-back" type="button" aria-label="Back to previous page">Back</button>
             </div>
@@ -36,9 +43,16 @@
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/task-progress.js"></script>
-    <script src="assets/js/errands-model.js"></script>
-    <script src="assets/js/errand-detail.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/task-progress.js?v=0aa3dcf1b1f5"></script>
+    <script src="assets/js/errands-model.js?v=8c422cd79212"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/campus-network.js?v=5a0ff34fa722"></script>
+    <script src="assets/js/campus-graph.js?v=4008865c2b14"></script>
+    <script src="assets/js/live-route-matching.js?v=0935c9f5199b"></script>
+    <script src="assets/vendor/leaflet.js?v=be31d7c9fcb6"></script>
+    <script src="assets/js/route-animator.js?v=7f0446759c24"></script>
+    <script src="assets/js/mavaccess.js?v=3c782c8db426"></script>
+    <script src="assets/js/errand-detail.js?v=e3853b3f8e63"></script>
 </body>
 </html>

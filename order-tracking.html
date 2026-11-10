@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Tracking</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <link rel="stylesheet" href="assets/vendor/leaflet.css?v=ee2b8290ebd8">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -26,6 +27,21 @@
             <div id="tracking-history" class="tracking-history" role="region" aria-live="polite"></div>
         </section>
 
+        <section aria-labelledby="tracking-map-title" class="tracking-map-section">
+            <div class="tracking-map-header">
+                <h2 id="tracking-map-title">Campus Route & Simulated Helper Movement</h2>
+                <span class="tracking-sim-badge" role="note">Simulated progress &bull; NOT live GPS</span>
+            </div>
+            <div id="tracking-route-summary" class="tracking-route-summary" role="status" aria-live="polite"></div>
+            <div id="tracking-map-container" class="tracking-map-wrap" role="region" aria-label="Campus route map">
+                <div id="tracking-campus-map" style="width:100%;height:320px;border-radius:12px;background:var(--color-surface-soft);"></div>
+            </div>
+            <div id="tracking-anim-controls" class="tracking-anim-controls" role="region" aria-label="Simulation playback controls"></div>
+            <p class="account-muted tracking-map-disclaimer">
+                Modeled on the main-campus building and footway network using licensed OpenStreetMap data (&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors). Movement timeline is derived from walking speed estimates for demonstration; not real-time GPS, university navigation, or an accessible-route certification.
+            </p>
+        </section>
+
         <section aria-labelledby="verify-heading">
             <h2 id="verify-heading">Verification Code</h2>
             <div id="tracking-code" role="region" aria-live="polite"></div>
@@ -38,10 +54,19 @@
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/task-progress.js"></script>
-    <script src="assets/js/notification-center.js"></script>
-    <script src="assets/js/orders.js"></script>
-    <script src="assets/js/order-tracking.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/task-progress.js?v=0aa3dcf1b1f5"></script>
+    <script src="assets/js/notification-center.js?v=26b1532c3950"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/campus-network.js?v=5a0ff34fa722"></script>
+    <script src="assets/js/campus-graph.js?v=4008865c2b14"></script>
+    <script src="assets/js/live-route-matching.js?v=0935c9f5199b"></script>
+    <script src="assets/vendor/leaflet.js?v=be31d7c9fcb6"></script>
+    <script src="assets/js/route-animator.js?v=7f0446759c24"></script>
+    <script src="assets/js/orders.js?v=9580bdd1c34d"></script>
+    <script src="assets/js/ledger.js?v=b38b9a15b6f8"></script>
+    <script src="assets/js/account.js?v=dec5125d3103"></script>
+    <script src="assets/js/mavaccess.js?v=3c782c8db426"></script>
+    <script src="assets/js/order-tracking.js?v=fb68852e00e4"></script>
 </body>
 </html>

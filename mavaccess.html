@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MavSide | MavAccess &amp; MavPoints Demo</title>
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <style>
+        .ma-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
+        .ma-panel { background: var(--color-surface-soft); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); padding: 16px; }
+        .ma-panel h2 { margin: 0 0 8px; font-size: 1.05rem; }
+        .ma-status { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+        .ma-stat { flex: 1; min-width: 120px; background:#fff; border:1px solid var(--color-border); border-radius:12px; padding:10px 12px; }
+        .ma-stat .k { font-size:.74rem; color:var(--color-text-secondary); font-weight:600; }
+        .ma-stat .v { font-size:1.25rem; font-weight:800; margin-top:2px; }
+        .ma-actions { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+        .ma-actions button { padding:8px 12px; border-radius:8px; border:1px solid var(--color-border); background:#fff; cursor:pointer; font-weight:600; font-size:.85rem; }
+        .ma-actions button.primary { background:var(--color-primary,#6d28d9); color:#fff; border-color:var(--color-primary,#6d28d9); }
+        .ma-quote { border:1px solid var(--color-border); border-radius:12px; padding:12px; background:#fff; font-size:.88rem; }
+        .ma-quote table { width:100%; border-collapse:collapse; }
+        .ma-quote td { padding:4px 0; } .ma-quote td:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+        .ma-quote .total { border-top:1px solid var(--color-border); font-weight:800; }
+        .ma-ledger { font-size:.83rem; }
+        .ma-row { display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px solid var(--color-border); }
+        .ma-row:last-child { border-bottom:none; }
+        .ma-tag { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:999px; }
+        .ma-tag.grant { background:#e7f6ec; color:#1e7a3c; }
+        .ma-tag.commission { background:#eef2ff; color:#4338ca; }
+        .ma-tag.points_redeemed { background:#fef3c7; color:#92400e; }
+        .ma-tag.subsidy_credit { background:#fdecec; color:#b3261e; }
+        .ma-tag.out_of_pocket { background:#f3f4f6; color:#374151; }
+        .ma-tag.eligibility { background:#e0e7ff; color:#3730a3; }
+        .ma-note { font-size:.76rem; color:var(--color-text-tertiary); margin-top:10px; line-height:1.45; }
+        @media (max-width: 900px) { .ma-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header aria-label="MavAccess demo page header">
+        <div data-include="components/navbar.html"></div>
+        <h1>MavAccess &amp; MavPoints Demo</h1>
+        <p class="hall-slogan">How an eligible student gets assisted deliveries at little or no cost.</p>
+    </header>
+
+    <main id="main-content" role="main" aria-label="MavAccess subsidy demonstration">
+        <section class="ma-layout" aria-label="Subsidy mechanism demonstration">
+            <div class="ma-panel">
+                <h2>MavAccess account</h2>
+                <p style="font-size:.8rem;color:var(--color-text-secondary);margin:0;">
+                    This browser-local experience does not perform official disability verification, university SSO or payment.
+                    MavPoints are not money. The modeled subsidy pool is not an actual cash balance.
+                </p>
+                <div class="ma-status">
+                    <div class="ma-stat"><div class="k">Eligibility</div><div class="v" id="ma-elig">Not verified</div></div>
+                    <div class="ma-stat"><div class="k">MavPoints</div><div class="v" id="ma-points">0</div></div>
+                    <div class="ma-stat"><div class="k">Subsidy pool</div><div class="v" id="ma-pool">$0.00</div></div>
+                </div>
+                <div class="ma-actions">
+                    <button id="ma-verify">Try MavAccess verification</button>
+                    <button id="ma-grant">Grant 30 monthly points</button>
+                    <button id="ma-complete">Record a local delivery (20% fee allocation)</button>
+                </div>
+                <h2 style="margin-top:16px;">Assistance request</h2>
+                <div class="ma-quote" id="ma-quote">
+                    <p style="margin:0;color:var(--color-text-secondary);">Request a $2.00 assisted delivery to see how points and the subsidy pool cover the fee.</p>
+                </div>
+                <div class="ma-actions">
+                    <button class="primary" id="ma-request">Request assisted delivery</button>
+                </div>
+                <p class="ma-note">
+                    Rules: 30 MavPoints granted monthly to eligible users (once per month); 1 point = $0.10 off.
+                    In this campus finance model, the platform takes a 12% commission on eligible delivery/service fees (not merchandise prices), and 20% of that commission is donated to
+                    the Campus Access Subsidy pool. Points reduce the fee first, the pool covers the remainder,
+                    then the student pays. Request a delivery twice: the first uses points, the second shows the
+                    subsidy pool covering part of the fee.
+                </p>
+            </div>
+
+            <div class="ma-panel">
+                <h2>Transaction ledger</h2>
+                <p style="font-size:.8rem;color:var(--color-text-secondary);margin:0 0 8px;">
+                    MavPoints and modeled dollar balances are recorded separately. Newest first.
+                </p>
+                <div class="ma-ledger" id="ma-ledger"><p style="color:var(--color-text-tertiary);">No transactions yet.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="components/footer.html"></div>
+
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/ledger.js?v=b38b9a15b6f8"></script>
+    <script src="assets/js/account.js?v=dec5125d3103"></script>
+    <script src="assets/js/mavaccess.js?v=3c782c8db426"></script>
+    <script src="assets/js/mavaccess-ui.js?v=42cac595a753"></script>
+</body>
+</html>

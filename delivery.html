@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MavSide Task Hall</title>
-    <link rel="stylesheet" href="style/theme.css">
-    <link rel="stylesheet" href="style/view.css">
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
     <style>
         .delivery-layout {
             display: grid;
-            grid-template-columns: 280px minmax(0, 1fr);
-            gap: 12px;
+            grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.4fr);
+            gap: 16px;
             align-items: start;
         }
 
@@ -20,12 +20,41 @@
             border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-soft);
-            padding: 12px;
+            padding: 14px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .delivery-map-panel {
+            grid-column: 1;
+            grid-row: 1;
+            position: sticky;
+            top: 16px;
+        }
+
+        .delivery-list-panel {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        #request-table-section {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        #request-table {
+            min-width: 680px;
         }
 
         .delivery-map-panel h2,
         .delivery-list-panel h2 {
             margin-bottom: 8px;
+        }
+
+        #delivery-map {
+            width: 100%; height: 440px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px; background: var(--color-surface-soft);
         }
 
         .delivery-map-panel iframe {
@@ -49,14 +78,179 @@
             text-decoration: none;
         }
 
+        .route-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:8px 0; }
+        .delivery-map-panel label {margin:0;}
+
+        .route-fields label { display:grid; gap:4px; min-width:0; font-size:0.9rem; }
+        .route-fields select { width:100%; min-width:0; margin:0; padding:8px; }
+        .route-fields .route-weather-field { display:flex; flex-direction:column; justify-content:center; gap:4px; }
+        .route-weather-field label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+        .route-weather-field input { width:18px; height:18px; margin:0; accent-color:var(--color-primary, #6d28d9); }
+        .route-weather-field small { font-size:0.78rem; color:var(--color-text-muted, #555); }
+        #map-route-legend { font-size:0.9rem; margin:8px 0; }
+        .hall-filters-disclosure {
+            margin-bottom: 12px;
+        }
+
+        .hall-filters-disclosure > summary {
+            display: none;
+        }
+
+        #filter-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        #filter-section > div {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        #filter-section label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        #filter-section select {
+            padding: 6px 8px;
+            font-size: 0.88rem;
+            border-radius: 6px;
+        }
+
         @media (max-width: 980px) {
+            .route-fields { grid-template-columns:repeat(2,minmax(0,1fr)); }
             .delivery-layout {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
             }
 
-            .delivery-map-panel iframe {
-                max-height: 320px;
+            .delivery-list-panel {
+                order: 1;
+                width: 100%;
             }
+
+            .delivery-map-panel {
+                order: 2;
+                width: 100%;
+                position: static;
+            }
+
+            #request-table-section {
+                display: none;
+            }
+
+            .delivery-cards-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            #delivery-map { height: 420px; }
+        }
+
+        @media (max-width: 580px) {
+            .hall-filters-disclosure {
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                background: var(--color-surface);
+                overflow: hidden;
+            }
+
+            .hall-filters-summary {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 14px;
+                font-weight: 600;
+                cursor: pointer;
+                user-select: none;
+                background: var(--color-surface-soft);
+                font-size: 0.92rem;
+            }
+
+            .filters-badge {
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 2px 8px;
+                border-radius: 12px;
+                background: var(--color-brand-light);
+                color: var(--color-brand);
+            }
+
+            #filter-section {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 12px;
+                margin-bottom: 0;
+            }
+
+            #delivery-map { height: 360px; }
+        }
+        @media (max-width: 580px) { #delivery-map { height: 420px; } .route-fields {grid-template-columns:1fr;} }
+
+        /* #75 — Student-first task cards on every viewport, never the dense 10-column table. */
+        .delivery-layout { grid-template-columns:minmax(320px, .98fr) minmax(0,1.12fr); gap:14px; }
+        .delivery-map-panel,.delivery-list-panel { padding:12px; }
+        #request-table-section { display:none !important; }
+        .delivery-cards-list { display:flex; flex-direction:column; gap:8px; }
+        .hall-filters-disclosure { margin:0 0 8px; border:0; }
+        .hall-filters-disclosure > summary { display:none; }
+        #filter-section { display:block; margin:0 0 10px; }
+        #filter-section > .hall-primary-filters,.hall-extra-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+        .hall-primary-filters > div,.hall-extra-filters > div {display:flex;flex-direction:column;gap:3px;min-width:0;}
+        #filter-section label {font-size:.73rem;font-weight:650;color:var(--color-text-secondary);}
+        #filter-section select {min-width:0;width:100%;min-height:34px;padding:5px 8px;border:1px solid var(--color-border);border-radius:9px;background:var(--color-surface);font-size:.83rem;}
+        .hall-more-filters {margin-top:6px;}
+        .hall-more-filters > summary {display:inline-flex;align-items:center;gap:5px;cursor:pointer;color:var(--color-brand);font-size:.79rem;font-weight:650;padding:5px 2px;}
+        .hall-more-filters[open] .hall-extra-filters {padding:7px 0 4px;}
+        .hall-list-intro {display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px;}
+        .hall-list-intro h2 {margin:0;font-size:1.05rem;}
+        .hall-list-intro p {margin:3px 0 0;font-size:.79rem;}
+        .hall-result-count {white-space:nowrap;color:var(--color-text-secondary);font-size:.77rem;font-weight:700;}
+        .route-fields .route-weather-field {justify-content:center;}
+        .route-weather-field .weather-toggle {display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:10px;min-height:55px;cursor:pointer;}
+        .route-weather-field .weather-toggle input {flex:none;width:20px;height:20px;}
+        .route-weather-field .weather-toggle span {display:flex;flex-direction:column;gap:2px;min-width:0;}
+        .route-weather-field .weather-toggle strong {font-size:.82rem;line-height:1.2;}
+        .route-weather-field .weather-toggle small {font-size:.72rem;line-height:1.25;}
+        .hall-task-card {gap:5px;padding:10px 12px;border-radius:11px;box-shadow:none;}
+        .hall-card-head {gap:3px;padding:0 0 4px;}
+        .hall-card-badge-row {justify-content:flex-start;gap:7px;}
+        .hall-card-title {font-size:.94rem;line-height:1.25;}
+        .hall-card-id-row {align-items:center;gap:6px;font-size:.72rem;}
+        .hall-card-id-row .account-muted {overflow-wrap:anywhere;}
+        .hall-card-reward {font-size:.95rem;white-space:nowrap;}
+        .hall-card-body {gap:5px;}
+        .hall-card-route-endpoints {flex-direction:row;flex-wrap:wrap;gap:4px 12px;padding:5px 8px;font-size:.81rem;}
+        .hall-card-route-endpoints .endpoint-line {flex:1 1 165px;gap:4px;}
+        .hall-card-match-box {padding:5px 8px;line-height:1.25;font-size:.8rem;}
+        .hall-card-match-box .match-time {margin-top:1px;}
+        .hall-card-dates {font-size:.73rem;}
+        .hall-card-actions {gap:6px;padding-top:6px;}
+        .hall-accept-btn {min-height:34px;flex:0 1 auto;padding:6px 13px;font-size:.81rem;}
+        .hall-map-btn {min-height:34px;padding:6px 10px;font-size:.78rem;}
+        .hall-card-actions a {font-size:.79rem;}
+        @media(max-width:980px) {
+            .delivery-layout {display:flex;flex-direction:column;gap:10px;}
+            .delivery-list-panel {order:1;width:100%;}
+            .delivery-map-panel {order:2;width:100%;position:static;}
+        }
+        @media(max-width:580px) {
+            .hall-filters-disclosure {border:1px solid var(--color-border);border-radius:10px;overflow:hidden;}
+            .hall-filters-disclosure > summary {display:flex !important;padding:8px 11px;font-size:.82rem;}
+            #filter-section {padding:9px;margin:0;}
+            .hall-primary-filters {grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;}
+            .hall-primary-filters select {font-size:.74rem;padding:4px 5px;}
+            .hall-extra-filters {grid-template-columns:1fr;}
+            .hall-task-card {padding:9px 10px;}
+            .hall-card-route-endpoints {flex-direction:column;gap:3px;}
+            .hall-card-route-endpoints .endpoint-line {flex:0 0 auto;}
+            #delivery-map {height:345px;}
         }
     </style>
 </head>
@@ -72,89 +266,79 @@
         <section class="delivery-layout" aria-label="Task Hall Layout">
             <aside class="delivery-map-panel" id="map-section" aria-labelledby="map-title">
                 <h2 id="map-title">Campus Map</h2>
-                <iframe id="campus-map-frame" title="3D perspective map" loading="lazy" src="assets/maps/mnsu/128-3d-perspective-map-18492e45.pdf"></iframe>
-                <div class="delivery-map-actions">
-                    <a href="assets/maps/mnsu/128-3d-perspective-map-18492e45.pdf" target="_blank" rel="noopener noreferrer">
-                        <button type="button">Expand Map</button>
-                    </a>
-                    <a href="https://mankato.mnsu.edu/about-the-university/maps-and-transportation/maps-and-directions/university-area-map/building-floor-plans/" target="_blank" rel="noopener noreferrer">
-                        <button type="button">More Maps</button>
-                    </a>
+                <div class="route-fields" aria-label="Explore walking routes">
+                    <label for="map-route-from">From<select id="map-route-from"><option value="">Choose origin</option></select></label>
+                    <label for="map-route-to">To<select id="map-route-to"><option value="">Choose destination</option></select></label>
+                    <label for="map-route-mode">Route preference<select id="map-route-mode"><option value="fastest">Fastest</option><option value="indoor">Indoor only</option><option value="outdoor">Outdoor only</option></select></label>
+                    <div class="route-weather-field"><label for="route-weather" class="weather-toggle"><input id="route-weather" type="checkbox" aria-describedby="route-weather-hint"><span><strong>Extreme weather</strong><small id="route-weather-hint">Use connected indoor paths only</small></span></label></div>
                 </div>
+                <label for="map-building-select">Find a building</label>
+                <select id="map-building-select" aria-label="Find a campus building" style="width:100%;margin:6px 0 10px;"><option value="">Core campus overview</option></select>
+                <div id="delivery-map"></div>
+                <div class="campus-map-key" aria-label="Map line types">
+                    <span><i class="map-key-indoor" aria-hidden="true"></i>Indoor · dashed</span>
+                    <span><i class="map-key-outdoor" aria-hidden="true"></i>Outdoor · solid</span>
+                    <span><i class="map-key-reference" aria-hidden="true"></i>Location only</span>
+                </div>
+                <p id="map-route-legend" class="account-muted" role="status" hidden></p>
+                <div id="hall-anim-controls" class="tracking-anim-controls" style="display:none;margin-top:8px;" role="region" aria-label="Route animation controls"></div>
+                <details class="campus-estimate-details">
+                    <summary>Estimate details</summary>
+                    <p>Dashed lines show indoor paths; solid lines show outdoor footways. Indoor passages follow modeled hallway connections aligned to university plans. Outdoor routes use OpenStreetMap footways and short estimated doorway links. Building entrances and tunnel positions are approximate, not surveyed or certified routes. Hollow markers show locations without a modeled connection. Doorway and within-building access segments are approximate. Outdoor only excludes indoor travel between buildings; walking from the origin point to its door and from the destination door to its point is included and shown as indoor access. The straight-line distance is only a numerical fastest-time lower bound and is not drawn as a walkable line.</p>
+                    <p>Times use a 1.4 m/s walking model, then add one 1–2 min allowance for the whole trip. Task estimates also include 90 s for pickup. These are planning estimates, not certified accessible routes.</p>
+                    <p>Select a task row to view its route. Purple is your route; pink includes pickup and delivery. The 15% limit uses distance, not the time allowance.</p>
+                </details>
             </aside>
 
             <div class="delivery-list-panel">
-                <section id="filter-section" aria-labelledby="filter-title">
-                    <h2 id="filter-title" class="sr-only">Filter Area</h2>
-                    <div>
-                        <label for="request-type">Type</label>
-                        <select name="request-type" id="request-type">
-                            <option value="">All</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Delivery">Delivery</option>
-                            <option value="Printing">Printing</option>
-                        </select>
-                    </div>
+                <details id="hall-filters-disclosure" class="hall-filters-disclosure" open>
+                    <summary class="hall-filters-summary">Find a task <span id="filters-active-badge" class="filters-badge">All</span></summary>
+                    <section id="filter-section" aria-label="Task filters and sorting">
+                        <div class="hall-primary-filters">
+                            <div><label for="request-type">Task type</label>
+                                <select id="request-type" name="request-type">
+                                    <option value="">All tasks</option><option value="Shopping">Shopping</option>
+                                    <option value="Delivery">Delivery</option><option value="Printing">Printing</option>
+                                </select>
+                            </div>
+                            <div><label for="state">Status</label>
+                                <select id="state" name="state">
+                                    <option value="">Any status</option><option value="Open">Open</option>
+                                    <option value="Accepted">Accepted</option><option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                            <div><label for="sort-by">Sort by</label>
+                                <select id="sort-by" name="sort-by">
+                                    <option value="time">Recent</option><option value="modeledFit">Route fit</option>
+                                    <option value="reward">Reward</option><option value="mavPoint">MavPoints</option>
+                                    <option value="deliverAt">Due date</option>
+                                </select>
+                            </div>
+                        </div>
+                        <details id="hall-more-filters" class="hall-more-filters">
+                            <summary>More filters <span aria-hidden="true">⌄</span></summary>
+                            <div class="hall-extra-filters">
+                                <div><label for="pickup-location">Pickup</label>
+                                    <select id="pickup-location" name="pickup-location"><option value="">Anywhere</option></select></div>
+                                <div><label for="delivery-location">Delivery</label>
+                                    <select id="delivery-location" name="delivery-location"><option value="">Anywhere</option></select></div>
+                                <div><label for="sort-dir">Order</label>
+                                    <select id="sort-dir" name="sort-dir">
+                                        <option value="desc">Descending</option><option value="asc">Ascending</option>
+                                    </select></div>
+                            </div>
+                        </details>
+                    </section>
+                </details>
 
-                    <div>
-                        <label for="pickup-location">Pickup Location</label>
-                        <select name="pickup-location" id="pickup-location">
-                            <option value="">All</option>
-                            <option value="Dorm">Dorm</option>
-                            <option value="Library">Library</option>
-                            <option value="Office">Office</option>
-                            <option value="Parking Lot">Parking Lot</option>
-                            <option value="Dining Hall">Dining Hall</option>
-                            <option value="Gym">Gym</option>
-                        </select>
-                    </div>
+                <div class="hall-list-intro"><div><h2>Available tasks</h2><p id="live-route-summary" class="account-muted" role="status" aria-live="polite"></p></div><span id="hall-result-count" class="hall-result-count" aria-live="polite"></span></div>
 
-                    <div>
-                        <label for="delivery-location">Delivery Location</label>
-                        <select name="delivery-location" id="delivery-location">
-                            <option value="">All</option>
-                            <option value="Dorm">Dorm</option>
-                            <option value="Library">Library</option>
-                            <option value="Office">Office</option>
-                            <option value="Parking Lot">Parking Lot</option>
-                            <option value="Dining Hall">Dining Hall</option>
-                            <option value="Gym">Gym</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="state">Status</label>
-                        <select name="state" id="state">
-                            <option value="">All</option>
-                            <option value="Open">Open</option>
-                            <option value="Accepted">Accepted</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="sort-by">Sort By</label>
-                        <select name="sort-by" id="sort-by">
-                            <option value="time">Published Time</option>
-                            <option value="reward">Reward</option>
-                            <option value="mavPoint">MavPoint</option>
-                            <option value="routeMatch">Route Match</option>
-                            <option value="deliverAt">Deliver By</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="sort-dir">Order</label>
-                        <select name="sort-dir" id="sort-dir">
-                            <option value="desc">Descending</option>
-                            <option value="asc">Ascending</option>
-                        </select>
-                    </div>
-                </section>
+                <div id="request-cards-container" class="delivery-cards-list" aria-label="Task hall requests cards"></div>
 
                 <section id="request-table-section" aria-labelledby="request-table-title">
                     <h2 id="request-table-title" class="sr-only">Request Table</h2>
                     <table id="request-table" title="request-table" aria-label="Task hall requests table">
+                        <caption class="sr-only">Select a task row, or focus it and press Enter, to preview its route.</caption>
                         <thead>
                             <tr>
                                 <th scope="col">Type</th>
@@ -179,17 +363,27 @@
                     </table>
                 </section>
             </div>
+
+
         </section>
     </main>
 
     <div data-include="components/footer.html"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/logger.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/notification-center.js"></script>
-    <script src="assets/js/errands-model.js"></script>
-    <script src="assets/js/table.js"></script>
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/js/logger.js?v=59de78106c00"></script>
+    <script src="assets/js/modal.js?v=45292fd4a074"></script>
+    <script src="assets/js/notification-center.js?v=26b1532c3950"></script>
+    <script src="assets/js/errands-model.js?v=8c422cd79212"></script>
+    <script src="assets/js/table.js?v=e9d4513724ea"></script>
     <!-- maps.js not needed on this simplified delivery view -->
+    <link rel="stylesheet" href="assets/vendor/leaflet.css?v=ee2b8290ebd8">
+    <script src="assets/vendor/leaflet.js?v=be31d7c9fcb6"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/campus-network.js?v=5a0ff34fa722"></script>
+    <script src="assets/js/campus-graph.js?v=4008865c2b14"></script>
+    <script src="assets/js/live-route-matching.js?v=0935c9f5199b"></script>
+    <script src="assets/js/route-animator.js?v=7f0446759c24"></script>
+    <script src="assets/js/campus-map.js?v=4499c0a7bb78"></script>
 </body>
 </html>

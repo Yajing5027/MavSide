@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MavSide | Route Match Lab</title>
+    <link rel="stylesheet" href="style/theme.css?v=653e02eaf450">
+    <link rel="stylesheet" href="style/view.css?v=cc0d2b52fc46">
+    <link rel="stylesheet" href="assets/vendor/leaflet.css?v=ee2b8290ebd8">
+    <style>
+        .rml-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+        .rml-panel { background: var(--color-surface-soft); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); padding: 16px; }
+        .rml-panel h2 { margin: 0 0 8px; font-size: 1.05rem; }
+        .rml-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 12px; }
+        .rml-controls > div { display: flex; flex-direction: column; gap: 4px; }
+        .rml-controls label { font-size: .78rem; color: var(--color-text-secondary); font-weight: 600; }
+        .rml-controls select, .rml-controls input { padding: 6px 8px; border: 1px solid var(--color-border); border-radius: 8px; background: #fff; }
+        .rml-graph-wrap { width: 100%; }
+        .rml-graph-wrap svg { width: 100%; height: auto; display: block; }
+        .rml-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: .78rem; color: var(--color-text-secondary); margin-top: 8px; }
+        .rml-legend span { display: inline-flex; align-items: center; gap: 5px; }
+        .rml-swatch { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+        .rml-task { border: 1px solid var(--color-border); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; background: #fff; }
+        .rml-task-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .rml-task-title { font-weight: 700; font-size: .92rem; }
+        .rml-badge { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+        .rml-badge.accept { background: #e7f6ec; color: #1e7a3c; }
+        .rml-badge.reject { background: #fdecec; color: #b3261e; }
+        .rml-meta { font-size: .8rem; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.45; }
+        .rml-reason { margin-top: 6px; font-size: .8rem; color: var(--color-text-primary); }
+        .rml-note { font-size: .76rem; color: var(--color-text-tertiary); margin-top: 10px; line-height: 1.4; }
+        @media (max-width: 900px) { .rml-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header aria-label="Route match lab page header">
+        <div data-include="components/navbar.html"></div>
+        <h1>Route Match Lab</h1>
+        <p class="hall-slogan">Computing how much extra detour a helper can absorb.</p>
+    </header>
+
+    <main id="main-content" role="main" aria-label="Route Match Lab">
+        <section class="rml-layout" aria-label="Route matching demonstration">
+            <div class="rml-panel">
+                <h2>Demonstration campus graph</h2>
+                <p style="font-size:.8rem;color:var(--color-text-secondary);margin:0 0 10px;">
+                  Base map: OpenStreetMap (ODbL, &copy; contributors). Building markers and indoor links are
+                  estimated for this demo, not surveyed; no route is represented as verified step-free or accessible.
+                </p>
+                <div class="rml-controls">
+                    <div>
+                        <label for="rml-weather">Weather</label>
+                        <select id="rml-weather">
+                            <option value="normal">Normal</option>
+                            <option value="severe">Severe (winter storm)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="rml-from">Helper origin (A)</label>
+                        <select id="rml-from"></select>
+                    </div>
+                    <div>
+                        <label for="rml-to">Helper destination (B)</label>
+                        <select id="rml-to"></select>
+                    </div>
+                    <div>
+                        <label for="rml-tolerance">Time tolerance (s)</label>
+                        <input id="rml-tolerance" type="number" value="180" min="30" max="900" step="10">
+                    </div>
+                </div>
+                <div class="rml-graph-wrap" id="rml-graph" style="height:480px;border-radius:12px;overflow:hidden;" role="img" aria-label="Campus map with helper route and task pickup drop-off"></div>
+                <div class="rml-legend">
+                    <span><span class="rml-swatch" style="background:#6b7280;"></span> Outdoor edge</span>
+                    <span><span class="rml-swatch" style="background:#2a85c4;"></span> Indoor edge (skyway/tunnel)</span>
+                    <span><span class="rml-swatch" style="background:#6d28d9;"></span> Helper route A→B</span>
+                    <span><span class="rml-swatch" style="background:#d97706;"></span> Task detour</span>
+                </div>
+                <div id="rml-anim-controls" class="tracking-anim-controls" style="margin-top:12px;" role="region" aria-label="Route animation controls"></div>
+            </div>
+
+            <div class="rml-panel">
+                <h2>Candidate assistance requests</h2>
+                <p style="font-size:.8rem;color:var(--color-text-secondary);margin:0 0 10px;">
+                    Each result is computed from the graph above (detour ≤ 15% and added time ≤ tolerance).
+                </p>
+                <div id="rml-tasks"></div>
+                <p class="rml-note">
+                    Matching rule: Δ = (dist(A,P)+dist(P,D)+dist(D,B) − dist(A,B)) / dist(A,B) ≤ 0.15,
+                    and added time = ETA(A→P→D→B) − ETA(A→B) + pickup latency ≤ tolerance.
+                    Severe weather raises outdoor edge cost and favors covered indoor edges.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="components/footer.html"></div>
+
+    <script src="assets/js/main.js?v=d7764c2d285b"></script>
+    <script src="assets/vendor/leaflet.js?v=be31d7c9fcb6"></script>
+    <script src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
+    <script src="assets/js/campus-network.js?v=5a0ff34fa722"></script>
+    <script src="assets/js/campus-graph.js?v=4008865c2b14"></script>
+    <script src="assets/js/route-animator.js?v=7f0446759c24"></script>
+    <script src="assets/js/route-match.js?v=36b1e43837e5"></script>
+</body>
+</html>
