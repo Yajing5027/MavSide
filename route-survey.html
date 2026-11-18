@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f6f3fc">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="mavside-survey-version" content="2026-11-18-location-2">
   <title>MavSide · 校园路线实测</title>
   <link rel="stylesheet" href="assets/vendor/leaflet.css?v=ee2b8290ebd8">
   <style>
     :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#252132;background:#f6f3fc;--purple:#6d28d9;--muted:#70677e;--line:#e8e1f1;--green:#15704f}
     *{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 20px calc(36px + env(safe-area-inset-bottom))}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}.brand{font-weight:850;font-size:23px;letter-spacing:-1px}.brand span{color:var(--purple)}.tag{font-size:12px;border:1px solid #ddd0f4;color:#6433a3;border-radius:99px;padding:7px 11px}.eyebrow{font-size:12px;letter-spacing:2px;color:var(--purple);font-weight:750}h1{font-size:32px;letter-spacing:-1px;margin:10px 0}h2{font-size:18px;margin:0 0 14px}p{line-height:1.65;margin:8px 0}.muted,.help{color:var(--muted);font-size:13px}.intro{margin-bottom:22px}.panel{background:white;border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:16px;box-shadow:0 8px 28px #39225505}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:650}input,select{display:block;width:100%;font:inherit;color:inherit;border:1px solid #d8cfdf;border-radius:11px;padding:13px 12px;margin-top:7px;background:#fff;min-height:48px}input[type=checkbox]{display:inline-block;width:20px;min-height:20px;margin:0 7px 0 0;vertical-align:middle}button{font:inherit;font-weight:650;min-height:48px;padding:12px 16px;border-radius:12px;border:1px solid #ded4eb;background:#fff;color:#40354f;cursor:pointer;touch-action:manipulation}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #c4a0f8;outline-offset:3px}.primary{background:var(--purple);border-color:var(--purple);color:#fff}.wide{width:100%;margin-top:16px}.soft{background:#f5efff;color:#5a26a4;border-color:#e4d4fc}.danger{color:#a22a3c;border-color:#e9cbd2}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.notice{font-size:13px;line-height:1.6;padding:12px 14px;border-radius:12px;background:#fff6e5;color:#785015;margin:12px 0}.notice.error{background:#fff0f1;color:#982b3c}.notice.good{background:#eef8f2;color:#216748}.time{font-variant-numeric:tabular-nums;font-size:64px;letter-spacing:-3px;font-weight:750;line-height:1.2;margin:16px 0 8px}.state{font-size:13px;color:var(--purple);font-weight:750}.state::before{content:' ';display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:7px}.trip{font-size:17px;font-weight:700;margin-bottom:14px;overflow-wrap:anywhere}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{background:#f8f6fb;border-radius:12px;padding:12px}.stat b{display:block;font-size:19px;font-variant-numeric:tabular-nums;margin-top:6px}.stat span{font-size:11px;color:var(--muted)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.actions button{min-height:55px}.environment{display:flex;gap:7px}.environment button{flex:1}.environment button[aria-pressed=true]{color:#5a26a4;background:#f2e9ff;border-color:#bfa0e9}.environment button{min-height:42px;padding:8px 13px}.section-label{font-size:12px;color:var(--muted);margin:18px 0 9px}.stairs-box{background:#f5eeff;border-radius:15px;padding:15px;margin-top:12px}.stairs-box .row{margin-bottom:10px}#map{height:270px;border-radius:15px;background:#eeebf3;margin-top:12px;z-index:0}details summary{cursor:pointer;font-size:14px;font-weight:650;min-height:36px;display:list-item}details p{font-size:13px;color:var(--muted)}.timeline{margin:0;padding:0;list-style:none;max-height:280px;overflow:auto}.timeline li{border-bottom:1px solid #eee8f3;padding:11px 0;font-size:13px;display:flex;gap:12px}.timeline time{color:var(--muted);font-variant-numeric:tabular-nums;min-width:46px}.timeline span{overflow-wrap:anywhere}.record{padding:15px 0;border-top:1px solid var(--line)}.record strong{display:block;font-size:14px;overflow-wrap:anywhere}.record p{font-size:12px;color:var(--muted)}.record .row{margin-top:9px}.record button{font-size:13px;padding:9px 12px;min-height:42px}.toolbar{margin:13px 0}.toolbar button{font-size:13px}footer{font-size:12px;color:var(--muted);padding:8px 4px;line-height:1.7}#flash:empty{display:none}[hidden]{display:none!important}.check-label{font-size:13px;font-weight:400}.instructions{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.8}.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(min-width:780px){.workspace{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}.workspace>.panel{margin:0}.intro{max-width:650px}}
+    .place-picker{position:relative}.place-options{position:absolute;top:100%;left:0;right:0;z-index:1200;background:#fff;border:1px solid #cdb7e9;box-shadow:0 10px 30px #39225522;border-radius:12px;max-height:260px;overflow:auto;overscroll-behavior:contain;margin-top:4px}.place-option{display:block;width:100%;border:0;border-bottom:1px solid #eee8f3;border-radius:0;text-align:left;font-size:13px;font-weight:450;min-height:54px}.place-option b{display:inline-block;color:#6421be;margin-right:8px}.place-option[aria-selected=true]{background:#f2e9ff}.place-empty{font-size:12px;color:var(--muted);padding:12px}.gps-facts{font-size:12px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}.location-actions{margin:10px 0}.location-actions button{flex:1}.location-help{margin-top:12px}.location-help ol{padding-left:20px;font-size:13px;line-height:1.8;color:var(--muted)}
     @media(max-width:500px){main{padding:18px 14px calc(30px + env(safe-area-inset-bottom))}header{margin-bottom:22px}h1{font-size:28px}.panel{padding:18px;border-radius:18px}.grid{gap:12px}.building-field{grid-column:1/-1}.time{font-size:60px}.tag{font-size:11px}.stats{gap:7px}.stat{padding:10px}.stat b{font-size:17px}input,select{font-size:16px}#map{height:230px}.subgrid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -20,12 +22,26 @@
   <div class="intro"><div class="eyebrow">CAMPUS FIELD NOTES</div><h1>走一遍，留下记录。</h1><p class="muted">选择两栋楼，开始走。自动计时，途中点一下记楼梯或岔路，最后导出一个文件。</p></div>
   <div id="flash" role="status" aria-live="polite" class="notice"></div>
   <div id="storage-warning" role="alert" class="notice error" hidden></div>
+  <section id="location-panel" class="panel">
+    <h2>先连接手机定位</h2>
+    <p class="help">不必先填 building。点下面的按钮，直接向 Safari 请求位置；尚未开始采集时，位置只显示在此页。</p>
+    <div class="row location-actions"><button id="connect-location" type="button" class="primary">连接定位／重试</button><button id="center-location" type="button" disabled>回到我的位置</button></div>
+    <div id="gps-status" role="status" aria-live="polite" class="notice">尚未请求定位，请点“连接定位／重试”。</div>
+    <p id="gps-facts" class="gps-facts"></p>
+    <details id="location-help" class="location-help"><summary>没有弹窗或连接不上？</summary>
+      <ol><li>请在 Safari 中直接打开本页的 HTTPS 地址，保持此页在前台。之前已允许时，也可能不再弹窗；以“已取得位置”和蓝点为准。</li><li>如果之前拒绝过，此次可能不会再弹窗。在 Safari 的本网站设置中，检查“位置”是否为“询问”或“允许”。网页不能替你修改权限。</li><li>在 iPhone 设置 → 隐私与安全性 → 定位服务中，确认已开启定位，并检查 Safari 网站的位置权限；需要更准确的位置时开启“精确位置”。</li><li>如果显示等待或超时，先到靠窗或室外的位置，再点“连接定位／重试”。</li></ol>
+      <div class="row"><button id="download-diagnostic" type="button">下载定位诊断（不含坐标）</button><a href="https://support.apple.com/en-us/102647" target="_blank" rel="noopener">Apple 定位设置说明</a></div>
+    </details>
+    <div id="map" aria-label="手机真实定位参考地图"></div>
+    <p class="help" id="map-status">蓝色实心点为手机返回的位置，圆圈表示手机报告的误差范围；室内历史点不连线、不计算室内距离。</p>
+    <p class="muted" id="fix-count">还没有采集定位点</p>
+  </section>
   <section id="setup" class="panel">
     <h2>这次从哪里出发？</h2>
     <form id="setup-form">
       <div class="grid">
-        <label class="building-field">出发 building<input id="from" list="buildings" placeholder="如 Memorial Library" required maxlength="120" autocomplete="off"></label>
-        <label class="building-field">到达 building<input id="to" list="buildings" placeholder="如 Centennial Student Union" required maxlength="120" autocomplete="off"></label>
+        <div class="building-field place-picker"><label for="from">出发 building</label><input id="from" role="combobox" aria-autocomplete="list" aria-controls="from-options" aria-expanded="false" placeholder="输入首字母或缩写，如 M、ML" required maxlength="120" autocomplete="off" autocapitalize="off" spellcheck="false"><div id="from-options" class="place-options" role="listbox" hidden></div></div>
+        <div class="building-field place-picker"><label for="to">到达 building</label><input id="to" role="combobox" aria-autocomplete="list" aria-controls="to-options" aria-expanded="false" placeholder="如 CSU、TC，点候选即可" required maxlength="120" autocomplete="off" autocapitalize="off" spellcheck="false"><div id="to-options" class="place-options" role="listbox" hidden></div></div>
         <label>起始楼层<input id="floor" type="number" value="1" min="-10" max="100" step="1" required></label>
         <label>起始环境<select id="environment"><option value="indoor">室内</option><option value="outdoor">室外</option></select></label>
         <label class="full">具体起点（选填）<input id="start-detail" placeholder="如一楼北门内侧、服务台" maxlength="200"></label>
@@ -33,9 +49,8 @@
       <details style="margin-top:16px"><summary>楼梯计时设置</summary><p>原始爬楼时间单独保留；估算用“水平步行时间＋跨层次数 × 统一时间”，不会重复计算。</p><label>每跨一层，估算多少秒？<input id="stair-seconds" type="number" value="30" min="1" max="600" step="1" required></label><p>30 秒只是可修改的初始假设，不是实测结论。</p></details>
       <button type="submit" class="primary wide">开始这次采集</button>
     </form>
-    <p class="help">首次开始时，Safari 会询问位置权限。允许可记录定位；拒绝仍能计时和标记。</p>
+    <p class="help">输入 M、ML、CSU 等首字母／缩写即可筛选候选，不必记全名。允许定位后可记录位置；拒绝仍能计时和标记。</p>
   </section>
-  <datalist id="buildings"></datalist>
   <div id="workspace" class="workspace" hidden>
     <section class="panel">
       <div class="row between"><span id="state" class="state"></span><span id="context" class="muted"></span></div>
@@ -52,14 +67,11 @@
         <label style="margin-top:15px">备注／位置（选填）<input id="note" placeholder="如 201 LINK、门锁着、此段经过室外" maxlength="300"></label><button id="add-note" class="wide" style="margin-top:8px">记下备注</button>
         <div class="actions"><button id="arrive-next" class="soft">已到达，再走一段</button><button id="arrive-finish" class="primary">已到达，结束采集</button></div>
       </div>
-      <div id="next-controls" hidden><p class="notice good">这一段已保存。休息、选下一栋楼的时间不计入步行。</p><form id="next-form"><label>下一栋 building<input id="next-to" list="buildings" required maxlength="120" placeholder="选择或输入名称" autocomplete="off"></label><button type="submit" class="primary wide">开始下一段</button></form><button id="finish-between" class="wide">结束整次采集</button></div>
+      <div id="next-controls" hidden><p class="notice good">这一段已保存。休息、选下一栋楼的时间不计入步行。</p><form id="next-form"><div class="place-picker"><label for="next-to">下一栋 building</label><input id="next-to" role="combobox" aria-autocomplete="list" aria-controls="next-to-options" aria-expanded="false" required maxlength="120" placeholder="如 TC、WH、TN" autocomplete="off" autocapitalize="off" spellcheck="false"><div id="next-to-options" class="place-options" role="listbox" hidden></div></div><button type="submit" class="primary wide">开始下一段</button></form><button id="finish-between" class="wide">结束整次采集</button></div>
       <details style="margin-top:16px"><summary>屏幕与记录选项</summary><p><label class="check-label"><input type="checkbox" id="keep-awake" checked>采集时尝试保持屏幕常亮</label></p><p id="wake-status"></p><p>保持此页在前台。切后台或锁屏时会暂停；回来点“继续”。刷新后从上次自动保存处恢复为暂停状态。</p><button id="stop-early" class="danger wide">未到目的地，结束并保存</button></details>
     </section>
     <section class="panel">
-      <h2>定位参考</h2><div id="gps-status" class="notice">尚未请求定位</div>
-      <div id="map" aria-label="原始定位点参考地图"></div><p class="help" id="map-status">灰点为室内或不可靠定位；室内点不连线，也不计算室内距离。蓝线只表示通过筛选的室外定位段。</p>
-      <p class="muted" id="fix-count">0 个定位点</p><p class="help">没有定位也能完成计时。定位不能自动识别楼层或证明走廊走向。</p>
-      <h2 style="margin-top:22px">沿途记录</h2><ol id="timeline" class="timeline"></ol>
+      <h2>沿途记录</h2><p class="help">没有定位也能完成计时。定位不能自动识别楼层或证明走廊走向。</p><ol id="timeline" class="timeline"></ol>
     </section>
   </div>
   <section class="panel" style="margin-top:16px"><div class="row between"><h2 style="margin:0">已保存的采集</h2><button id="export-all">导出全部</button></div><p class="help">到多个 building 的分段记录，会保存在同一次采集里。下载后把 JSON 文件交给我即可。</p><div id="saved-list"></div></section>
@@ -68,6 +80,6 @@
 </main>
 <script defer src="assets/vendor/leaflet.js?v=be31d7c9fcb6"></script>
 <script defer src="assets/js/campus-places.js?v=f3e7bd1ac29a"></script>
-<script defer src="assets/js/route-survey-model.js?v=e7126fd12057"></script>
-<script defer src="assets/js/route-survey.js?v=90615d3fe197"></script>
+<script defer src="assets/js/route-survey-model.js?v=51f8c138266e"></script>
+<script defer src="assets/js/route-survey.js?v=8061c4f6f2c7"></script>
 </body></html>
